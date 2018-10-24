@@ -26,10 +26,18 @@ public class PlayerController : MonoBehaviour {
     private bool isjump;
 
 
+    public GameObject avatar1, avatar2;
+
+    int currentavatar = 1;
+
+
     private void Start()
     {
         extrajumps = extrajumpvalue;
         rb = GetComponent<Rigidbody2D>();
+
+        avatar1.gameObject.SetActive(true);
+        avatar2.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -90,6 +98,25 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
         {
             isjump = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            switch (currentavatar)
+            {
+                case 1:
+                    currentavatar = 2;
+                    avatar1.gameObject.SetActive(false);
+                    avatar2.gameObject.SetActive(true);
+                    break;
+
+                case 2:
+                    currentavatar = 1;
+                    avatar1.gameObject.SetActive(true);
+                    avatar2.gameObject.SetActive(false);
+                    break;
+
+            }
         }
     }
 
