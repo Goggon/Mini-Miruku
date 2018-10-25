@@ -25,19 +25,12 @@ public class PlayerController : MonoBehaviour {
     public float jumptime;
     private bool isjump;
 
-
-    public GameObject avatar1, avatar2;
-
-    int currentavatar = 1;
-
+    public GameObject Avatar2;
 
     private void Start()
     {
         extrajumps = extrajumpvalue;
         rb = GetComponent<Rigidbody2D>();
-
-        avatar1.gameObject.SetActive(true);
-        avatar2.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -48,6 +41,8 @@ public class PlayerController : MonoBehaviour {
 
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+
+        Avatar2.transform.position = transform.position;
 
         if (facingright == false && moveInput > 0)
         {
@@ -98,25 +93,6 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Space))
         {
             isjump = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            switch (currentavatar)
-            {
-                case 1:
-                    currentavatar = 2;
-                    avatar1.gameObject.SetActive(false);
-                    avatar2.gameObject.SetActive(true);
-                    break;
-
-                case 2:
-                    currentavatar = 1;
-                    avatar1.gameObject.SetActive(true);
-                    avatar2.gameObject.SetActive(false);
-                    break;
-
-            }
         }
     }
 
