@@ -37,8 +37,6 @@ public class PlayerController2 : MonoBehaviour {
     {
         isgrounded = Physics2D.OverlapCircle(groundcheck.position, checkradius, whatisground);
 
-
-
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
@@ -88,6 +86,8 @@ public class PlayerController2 : MonoBehaviour {
             {
                 isjump = false;
             }
+
+
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
