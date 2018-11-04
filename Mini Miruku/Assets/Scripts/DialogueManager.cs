@@ -8,6 +8,8 @@ public class DialogueManager : MonoBehaviour {
     public Text NameText;
     public Text DialogueText;
 
+    public Animator animator;
+
     private Queue<string> lines;
 
 	// Use this for initialization
@@ -17,6 +19,8 @@ public class DialogueManager : MonoBehaviour {
 	
     public void StartDialogue (Dialogue dialogue)
     {
+        animator.SetBool("IsOpen", true);
+
         NameText.text = dialogue.name;
 
         lines.Clear();
@@ -44,6 +48,8 @@ public class DialogueManager : MonoBehaviour {
 
     void EndDialogue()
     {
+        animator.SetBool("IsOpen", false);
+
         Debug.Log("end of conversation");
     }
 }
