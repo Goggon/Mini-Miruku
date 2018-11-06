@@ -17,6 +17,7 @@ public class PlayerController2 : MonoBehaviour {
     public Transform groundcheck;
     public float checkradius;
     public LayerMask whatisground;
+    
 
     private int extrajumps;
     public int extrajumpvalue;
@@ -99,6 +100,7 @@ public class PlayerController2 : MonoBehaviour {
             isjump = false;
         }
     }
+    
 
     void flip()
     {
