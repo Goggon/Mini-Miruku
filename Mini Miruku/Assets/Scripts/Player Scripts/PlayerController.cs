@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
     private bool isjump;
 
     public GameObject Avatar2;
+    public GameObject Avatar3;
+    public GameObject Avatar4;
 
     private void Start()
     {
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
         Avatar2.transform.position = transform.position;
+        Avatar3.transform.position = transform.position;
+        Avatar4.transform.position = transform.position;
 
         if (facingright == false && moveInput > 0)
         {

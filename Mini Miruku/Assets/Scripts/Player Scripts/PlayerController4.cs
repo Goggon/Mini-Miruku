@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController2 : MonoBehaviour {
+public class PlayerController4 : MonoBehaviour {
 
     public float speed;
     public float jumpforce;
@@ -26,8 +26,8 @@ public class PlayerController2 : MonoBehaviour {
     private bool isjump;
 
     public GameObject Avatar1;
+    public GameObject Avatar2;
     public GameObject Avatar3;
-    public GameObject Avatar4;
 
     private void Start()
     {
@@ -39,12 +39,14 @@ public class PlayerController2 : MonoBehaviour {
     {
         isgrounded = Physics2D.OverlapCircle(groundcheck.position, checkradius, whatisground);
 
+
+
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
         Avatar1.transform.position = transform.position;
+        Avatar2.transform.position = transform.position;
         Avatar3.transform.position = transform.position;
-        Avatar4.transform.position = transform.position;
 
         if (facingright == false && moveInput > 0)
         {
@@ -90,8 +92,6 @@ public class PlayerController2 : MonoBehaviour {
             {
                 isjump = false;
             }
-
-
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
