@@ -5,12 +5,21 @@ using UnityEngine;
 public class TriggerEnter : MonoBehaviour {
 
     public UnityEngine.Events.UnityEvent OnEnter;
+    public UnityEngine.Events.UnityEvent OnExit;
+
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(col.tag == "Player")
         {
             OnEnter.Invoke();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if(col.tag == "Player")
+        {
+            OnExit.Invoke();
         }
     }
 }
