@@ -26,6 +26,12 @@ public class PlayerController2 : MonoBehaviour {
     public float jumptime;
     private bool isjump;
 
+    public bool wallsliding;
+    public Transform wallcheckpoint;
+    public bool wallcheck;
+    public LayerMask walllayermask;
+
+
     public GameObject Avatar1;
     public GameObject Avatar3;
     public GameObject Avatar4;
