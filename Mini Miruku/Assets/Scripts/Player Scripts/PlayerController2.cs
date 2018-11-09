@@ -47,7 +47,17 @@ public class PlayerController2 : MonoBehaviour {
         isgrounded = Physics2D.OverlapCircle(groundcheck.position, checkradius, whatisground);
 
         moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+
+        if (isgrounded)
+        {
+            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(moveInput * speed / 2, rb.velocity.y);
+        }
+
+        
 
         Avatar1.transform.position = transform.position;
         Avatar3.transform.position = transform.position;
@@ -86,7 +96,7 @@ public class PlayerController2 : MonoBehaviour {
             jumptimecounter = jumptime;
             rb.velocity = Vector2.up * jumpforce;
         }
-        if (Input.GetKey(KeyCode.Space) && isjump == true)
+        if (Input.GetKey(KeyCode.Space) && isjump == true && !wallsliding)
         {
             if (jumptimecounter > 0)
             {
@@ -105,8 +115,44 @@ public class PlayerController2 : MonoBehaviour {
         {
             isjump = false;
         }
+
+
+        if (!isgrounded)
+        {
+            wallcheck = Physics2D.OverlapCircle(wallcheckpoint.position, 0.5f, walllayermask);
+            
+            if(facingright && Input.GetKeyDown(KeyCode.D) && wallcheck || !facingright && Input.GetKeyDown(KeyCode.A) && wallcheck)
+            {
+                HandleWallSliding();
+            }
+
+        }
+
+        if(wallcheck == false || isgrounded)
+        {
+            wallsliding = false;
+        }
     }
-    
+
+    void HandleWallSliding()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, -0.7f);
+
+        wallsliding = true;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (facingright)
+            {
+                rb.AddForce(new Vector2(-1, 3) * jumpforce);
+            }
+            else
+            {
+                rb.AddForce(new Vector2(1, 3) * jumpforce);
+            }
+        }
+
+    }
 
     void flip()
     {
