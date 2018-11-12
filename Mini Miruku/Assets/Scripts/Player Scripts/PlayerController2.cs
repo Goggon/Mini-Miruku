@@ -121,7 +121,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             wallcheck = Physics2D.OverlapCircle(wallcheckpoint.position, 0.5f, walllayermask);
             
-            if(facingright && Input.GetKeyDown(KeyCode.D) && wallcheck || !facingright && Input.GetKeyDown(KeyCode.A) && wallcheck)
+            if(facingright && Input.GetKey(KeyCode.D) && wallcheck || !facingright && Input.GetKey(KeyCode.A) && wallcheck)
             {
                 HandleWallSliding();
             }
@@ -136,23 +136,51 @@ public class PlayerController2 : MonoBehaviour {
 
     void HandleWallSliding()
     {
-        rb.velocity = new Vector2(rb.velocity.x, -0.7f);
+        rb.velocity = new Vector2(rb.velocity.x, -0.90f);
 
         wallsliding = true;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
-            if (facingright)
+            //if (facingright)
+            //{
+            //    rb.velocity = new Vector2(150, 7) * jumpforce;
+            //    JUMPCHECK = true;
+            //}
+            //else
+            //{
+            //    rb.velocity = new Vector2(-150, 7) * jumpforce;
+            //    JUMPCHECK = true;
+            //}
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                rb.AddForce(new Vector2(-1, 3) * jumpforce);
+                isjump = true;
+                jumptimecounter = jumptime;
             }
-            else
+            if (Input.GetKey(KeyCode.Space) && isjump == true)
             {
-                rb.AddForce(new Vector2(1, 3) * jumpforce);
+                if (jumptimecounter > 0)
+                {
+                    rb.velocity = Vector2.up * jumpforce*10;
+                    jumptimecounter -= Time.deltaTime;
+                }
+                else
+                {
+                    isjump = false;
+                }
+
+
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                isjump = false;
             }
         }
 
     }
+
+    public bool JUMPCHECK;
 
     void flip()
     {
