@@ -9,7 +9,6 @@ public class DialogueManager : MonoBehaviour {
     public Text DialogueText;
 
     public Animator animator;
-    public Animator Char1;
 
     private Queue<string> lines;
     private Queue<string> Names;
@@ -55,20 +54,11 @@ public class DialogueManager : MonoBehaviour {
         DialogueText.text = line;
         NameText.text = name;
 
-        if (name == "Jeff")
-        {
-            Char1.SetBool("Char1", true);
-        }
-        else if (name == "Bob")
-        {
-            Char1.SetBool("Char1", false);
-        }
     }
 
     void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
-        Char1.SetBool("Char1", false);
 
         Debug.Log("end of conversation");
     }
