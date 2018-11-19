@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController2 : MonoBehaviour {
 
@@ -70,6 +71,11 @@ public class PlayerController2 : MonoBehaviour {
         else if (facingright == true && moveInput < 0)
         {
             flip();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Level 1");
         }
     }
 
