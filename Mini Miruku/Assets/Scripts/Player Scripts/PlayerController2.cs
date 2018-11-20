@@ -127,7 +127,7 @@ public class PlayerController2 : MonoBehaviour {
         {
             wallcheck = Physics2D.OverlapCircle(wallcheckpoint.position, 0.5f, walllayermask);
             
-            if(facingright && Input.GetKey(KeyCode.D) && wallcheck || !facingright && Input.GetKey(KeyCode.A) && wallcheck)
+            if(facingright && (Input.GetKey(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) )&& wallcheck || !facingright && (Input.GetKey(KeyCode.A) || Input.GetKeyDown(KeyCode.RightArrow)) && wallcheck)
             {
                 HandleWallSliding();
             }
