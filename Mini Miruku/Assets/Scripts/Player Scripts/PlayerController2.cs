@@ -20,9 +20,6 @@ public class PlayerController2 : MonoBehaviour {
     public LayerMask whatisground;
     
 
-    private int extrajumps;
-    public int extrajumpvalue;
-
     private float jumptimecounter;
     public float jumptime;
     private bool isjump;
@@ -39,7 +36,6 @@ public class PlayerController2 : MonoBehaviour {
 
     private void Start()
     {
-        extrajumps = extrajumpvalue;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -55,7 +51,7 @@ public class PlayerController2 : MonoBehaviour {
         }
         else
         {
-            rb.velocity = new Vector2(moveInput * speed / 2, rb.velocity.y);
+            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
         }
 
         
@@ -81,21 +77,6 @@ public class PlayerController2 : MonoBehaviour {
 
     private void Update()
     {
-        //if (isgrounded == true)
-        //{
-        //    extrajumps = extrajumpvalue;
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Space) && extrajumps > 0)
-        //{
-        //    rb.velocity = Vector2.up * jumpforce;
-        //    extrajumps--;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Space) && extrajumps == 0 && isgrounded == true)
-        //{
-        //    rb.velocity = Vector2.up * jumpforce;
-        //}
-
         if (isgrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
             isjump = true;
@@ -126,8 +107,8 @@ public class PlayerController2 : MonoBehaviour {
         if (!isgrounded)
         {
             wallcheck = Physics2D.OverlapCircle(wallcheckpoint.position, 0.5f, walllayermask);
-            
-            if(facingright && (Input.GetKey(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) )&& wallcheck || !facingright && (Input.GetKey(KeyCode.A) || Input.GetKeyDown(KeyCode.RightArrow)) && wallcheck)
+
+            if (facingright && Input.GetAxisRaw("Horizontal") > 0 && wallcheck || !facingright && Input.GetAxisRaw("Horizontal") < 0 && wallcheck)
             {
                 HandleWallSliding();
             }
@@ -148,16 +129,6 @@ public class PlayerController2 : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump"))
         {
-            //if (facingright)
-            //{
-            //    rb.velocity = new Vector2(150, 7) * jumpforce;
-            //    JUMPCHECK = true;
-            //}
-            //else
-            //{
-            //    rb.velocity = new Vector2(-150, 7) * jumpforce;
-            //    JUMPCHECK = true;
-            //}
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isjump = true;
@@ -168,7 +139,17 @@ public class PlayerController2 : MonoBehaviour {
                 if (jumptimecounter > 0)
                 {
                     rb.velocity = Vector2.up * jumpforce*10;
+                    
                     jumptimecounter -= Time.deltaTime;
+
+                    if (facingright)
+                    {
+                        rb.velocity = Vector2.right * jumpforce * 10;
+                    }
+                    else if (!facingright)
+                    {
+                        rb.velocity = Vector2.left * jumpforce * 10;
+                    }
                 }
                 else
                 {
